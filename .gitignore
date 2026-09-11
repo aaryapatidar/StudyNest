@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+node_modules/
+dist/
+.venv/
+*.db
+pytest-cache-files-*/
+*.log
+frontend/tsconfig.tsbuildinfo
+backend/pytest_output.txt

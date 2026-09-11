@@ -7,7 +7,7 @@ module.exports = defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        target: env.VITE_API_URL || 'http://localhost:8000',
         changeOrigin: true,
       },
     },

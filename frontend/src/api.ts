@@ -1,4 +1,13 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const RAW_BASE_URL = (import.meta.env.VITE_API_URL as string | undefined) || 'http://localhost:8000/api'
+
+// Normalize the base URL so the final request is always `<origin>/api/<path>`
+// whether VITE_API_URL is `http://localhost:8000` or `http://localhost:8000/api`.
+// Without this, a bare origin would produce `/auth/...` (missing prefix -> 404)
+// and appending `/api/...` paths would produce `/api/api/...` (double prefix -> 404).
+const API_URL = (() => {
+  const trimmed = RAW_BASE_URL.trim().replace(/\/+$/, '')
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`
+})()
 
 export type User = { id: string; full_name: string; email: string; college: string; course: string; semester: number }
 export type Subject = { id: string; name: string; code: string; description: string; semester: number; notes_count: number; tasks_count: number; progress: number }

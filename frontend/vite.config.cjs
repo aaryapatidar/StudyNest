@@ -10,7 +10,7 @@ module.exports = defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: env.VITE_API_URL || 'http://localhost:8000',
+            target: (env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '').replace(/\/api$/, '') || 'http://localhost:8000',
           changeOrigin: true,
         },
       },
